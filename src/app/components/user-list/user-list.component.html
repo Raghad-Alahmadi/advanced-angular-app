@@ -10,6 +10,7 @@
           <small class="text-muted">Posts: {{ user.postCount }}</small>
         </div>
         <p class="mb-1">{{ user.email }}</p>
+        <a [routerLink]="['/user', user.id]" class="btn btn-primary mt-2">View Details</a>
       </div>
     </div>
   </div>
