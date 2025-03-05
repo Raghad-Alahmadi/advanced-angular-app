@@ -1,0 +1,15 @@
+<div class="container mt-4">
+    <h2 class="mb-4 bg-primary text-white p-3 rounded">User List</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="!errorMessage" class="list-group">
+      <div *ngFor="let user of users" class="list-group-item list-group-item-action flex-column align-items-start mb-2">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ user.name }}</h5>
+          <small class="text-muted">Posts: {{ user.postCount }}</small>
+        </div>
+        <p class="mb-1">{{ user.email }}</p>
+      </div>
+    </div>
+  </div>
