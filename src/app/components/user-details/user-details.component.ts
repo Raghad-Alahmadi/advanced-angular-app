@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-details',
@@ -16,7 +17,7 @@ export class UserDetailsComponent implements OnInit {
   posts: any[] = [];
   errorMessage: string | null = null;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private titleService: Title) {}
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id');
@@ -24,6 +25,7 @@ export class UserDetailsComponent implements OnInit {
       this.userService.getUserById(+userId).subscribe({
         next: user => {
           this.user = user;
+          this.titleService.setTitle(`User Details - ${user.name}`);
           this.userService.getPosts(user.id).subscribe({
             next: posts => {
               this.posts = posts;
