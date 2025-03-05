@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,16 @@ export class UserService {
       catchError(error => {
         console.error('Error fetching users:', error);
         return throwError(() => new Error('Failed to fetch users. Please try again later.'));
+      })
+    );
+  }
+
+  getUserById(userId: number): Observable<any> {
+    const url = `${this.usersUrl}/${userId}`;
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        console.error('Error fetching user:', error);
+        return throwError(() => new Error('Failed to fetch user. Please try again later.'));
       })
     );
   }

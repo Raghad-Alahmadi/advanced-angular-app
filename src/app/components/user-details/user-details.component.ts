@@ -21,20 +21,18 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id');
     if (userId) {
-      this.userService.getUsers().subscribe({
-        next: users => {
-          this.user = users.find(user => user.id === +userId);
-          if (this.user) {
-            this.userService.getPosts(this.user.id).subscribe({
-              next: posts => {
-                this.posts = posts;
-              },
-              error: error => {
-                console.error(error);
-                this.errorMessage = error.message;
-              }
-            });
-          }
+      this.userService.getUserById(+userId).subscribe({
+        next: user => {
+          this.user = user;
+          this.userService.getPosts(user.id).subscribe({
+            next: posts => {
+              this.posts = posts;
+            },
+            error: error => {
+              console.error(error);
+              this.errorMessage = error.message;
+            }
+          });
         },
         error: error => {
           console.error(error);
